@@ -35,6 +35,7 @@ userSchema.methods.addBoyToName = function(next) {
 wykonuje się przed metodą okreśoną jako parametr
 W tym przypadku ustawi odpowiednie pola */
 userSchema.pre('save', function(next) {
+  console.log('PRE się odpala');
   // pobranie aktualnego czasu
   const currentDate = new Date();
 
