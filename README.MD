@@ -3,7 +3,7 @@
 [Link do skryptu serwera łączącego się z mongoDB](https://mongo-bb-kodilla.herokuapp.com)
 
 Ustawiłem prosty serwer http na node.js
-Wyświetla wpisy w BD
+Wyświetla dokumenty w kolekcji
 
 ### KOD server.js
 
