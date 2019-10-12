@@ -5,7 +5,7 @@ const server = http.createServer();
 const CircularStructureStringify = require('circular-structure-stringify');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/nodeappdb', {
+mongoose.connect('mongodb+srv://bb-dev:!M0ng0db2019@cluster0-dbftg.mongodb.net/test?retryWrites=true&w=majority', {
   // useMongoClient: true - nie jest potrzebne od Mongo 5.x
   useNewUrlParser: true,
   useUnifiedTopology: true,
