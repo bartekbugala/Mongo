@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const http = require('http');
+const server = http.createServer();
+const CircularStructureStringify = require('circular-structure-stringify');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/nodeappdb', {
@@ -81,7 +84,8 @@ const findAllUsers = function() {
   // find all users
   return User.find({}, function(err, res) {
     if (err) throw err;
-    console.log('Actual database records are ' + res);
+    //console.log('Actual database records are ' + res);
+    return res;
   });
 };
 
@@ -152,7 +156,35 @@ Promise.all([kenny.save(), mark.save(), benny.save()])
   .then(findSpecificRecord)
   .then(updadeUserPassword)
   .then(updateUsername)
-  .then(findMarkAndDelete)
-  .then(findKennyAndDelete)
-  .then(findBennyAndRemove)
+  //.then(findMarkAndDelete)
+  //.then(findKennyAndDelete)
+  //.then(findBennyAndRemove)
   .catch(console.log.bind(console));
+
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+
+server.on('request', function(request, response) {
+  //response.write('Hello world!' + usersOutput ? usersOutput : 'dB error');
+
+  User.find({}, function(err, users) {
+    let userMap = {};
+
+    users.forEach(function(user) {
+      userMap[user._id] = user;
+    });
+    response.write(CircularStructureStringify(userMap));
+    response.end();
+  });
+});
+server.listen(3000);

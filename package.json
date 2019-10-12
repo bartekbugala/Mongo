@@ -2,13 +2,14 @@
   "name": "mangusta",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "BB",
   "license": "MIT",
   "dependencies": {
+    "circular-structure-stringify": "^1.0.6",
     "mongoose": "^5.7.4"
   }
 }
